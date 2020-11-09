@@ -35,6 +35,15 @@ if (!isset($_SESSION['user_id'])) {
     <div class="row">
         <div class="col">
             <h2>Panel administracyjny</h2>
+            <p>Witaj <?= $_SESSION['user_login'] ?>!</p>
+            <form action="../scripts/logout.php">
+                <input class="btn btn-danger" type="submit" value="Wyloguj się"/>
+            </form>
+        </div>
+    </div>
+    <?php if ($_SESSION['user_role'] == 'a') { ?>
+    <div class="row">
+        <div class="col">
             <p>Zarządzaj innymi użytkownikami</p>
         </div>
     </div>
