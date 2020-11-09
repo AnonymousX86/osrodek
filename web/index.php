@@ -29,6 +29,16 @@
         <div class="col">
             <h1>Ośrodek wypoczynkowy</h1>
             <p>Projekt klasy 4J z Zespołu Szkół Ekonomicznych im. Mikołaja Kopernika w Olsztynie.</p>
+            <?php
+            require 'env/connect.php';
+            $sql = $mysqli->prepare('SELECT content FROM articles WHERE id = 1');
+            $sql->execute();
+            $result = $sql->get_result();
+            while ($row = $result->fetch_assoc())
+                echo '<p>'.$row['content'].'</p>';
+            $result->close();
+            $mysqli->close();
+            ?>
         </div>
     </div>
     <div class="row">
@@ -45,6 +55,21 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus blanditiis doloremque dolores, ea
                 eligendi eos error exercitationem illo illum inventore laudantium minima molestiae nulla, obcaecati odio
                 omnis porro tempora tenetur!</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="scripts/login.php" method="post">
+                <label>
+                    Login
+                    <input class="form-control" type="text" name="login" required/>
+                </label>
+                <label>
+                    Hasło
+                    <input class="form-control" type="password" name="password" required/>
+                </label>
+                <input type="submit">
+            </form>
         </div>
     </div>
 </div>
