@@ -45,8 +45,53 @@ if (!isset($_SESSION['user_id'])) {
     <div class="row">
         <div class="col">
             <p>Zarządzaj innymi użytkownikami</p>
+            <table>
+                <tr>
+                    <th>Użytkownik</th>
+                    <th>Operacje</th>
+                </tr>
+                <?php
+                require '../env/connect.php';
+                $sql = $mysqli->prepare('SELECT login FROM users WHERE `role` NOT LIKE \'a\' ORDER BY `role`');
+                $sql->execute();
+                $result = $sql->get_result();
+                $users = [];
+                while ($row = $result->fetch_assoc())
+                    $users[] = $row['login'];
+
+
+                foreach ($users as $u) {
+                    echo '<tr>';
+                    echo '<td>'.$u.'</td>';
+                    echo '<td><a href="#">Zarządzaj</a></td>';
+                    echo '<tr/>';
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+    <?php } ?>
+    <hr/>
+    <div class="row">
+        <div class="col">
+            <form action="">
+                <label for="editor"><h2>Informacje o ośrodku</h2></label>
+                <?php
+                require '../env/connect.php';
+//                TODO stworzyć edytor
+                ?>
+                <textarea name="text" id="editor" cols="30" rows="10"><?=?></textarea>
+            </form>
         </div>
     </div>
 </div>
 <?php require "../static/scripts.html" ?>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 </body>
