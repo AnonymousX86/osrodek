@@ -8,13 +8,8 @@ if (!isset($_SESSION['user_id'])) {
 if(isset($_POST['text'])) {
     require "../env/connect.php";
     $sql = $mysqli->prepare('UPDATE articles SET content = ?, author_id = ?, edit_date = CURRENT_DATE WHERE id=1');
-    header("Location: ../panel/");
     $sql->bind_param('si', $_POST['text'], $_SESSION['user_id']);
     $sql->execute();
     $mysqli->close();
 }
-else
-{
-    header("Location: ../panel/");
-}
-?>
+header("Location: ../panel/");
