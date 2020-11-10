@@ -91,12 +91,10 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 <?php require "../static/scripts.html" ?>
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script src="../src/ckeditor/ckeditor.js"></script>
 <script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
+    ClassicEditor.create(document.querySelector('#editor')).catch(error => {
+        console.error(error);
+    });
 </script>
 </body>
