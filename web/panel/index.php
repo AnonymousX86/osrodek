@@ -74,13 +74,20 @@ if (!isset($_SESSION['user_id'])) {
     <hr/>
     <div class="row">
         <div class="col">
-            <form action="">
+            <form action="../scripts/update_info.php" method="post">
                 <label for="editor"><h2>Informacje o ośrodku</h2></label>
                 <?php
                 require '../env/connect.php';
 //                TODO stworzyć edytor
+            $sql = $mysqli->prepare('SELECT content FROM articles WHERE id = 1');
+            $sql->execute();
+            $result = $sql->get_result();
+            $row = $result->fetch_assoc();
+            $result->close();
+            $mysqli->close();
                 ?>
-                <textarea name="text" id="editor" cols="30" rows="10"><?=?></textarea>
+                <textarea name="text" id="editor" cols="30" rows="10"><?=$row['content']?></textarea>
+                <input type="submit" value="Zapisz">
             </form>
         </div>
     </div>
