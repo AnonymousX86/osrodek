@@ -26,7 +26,7 @@ CREATE TABLE `apartments` (
   `name` varchar(40) NOT NULL,
   `description` varchar(300) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -34,6 +34,7 @@ CREATE TABLE `apartments` (
 --
 
 LOCK TABLES `apartments` WRITE;
+INSERT INTO `apartments` VALUES (1,'Example','');
 UNLOCK TABLES;
 
 --
@@ -53,7 +54,7 @@ CREATE TABLE `apt_bookings` (
   KEY `apt_bookings_users_id_fk` (`user_id`),
   CONSTRAINT `apt_bookings_apartments_id_fk` FOREIGN KEY (`apt_id`) REFERENCES `apartments` (`id`) ON DELETE CASCADE,
   CONSTRAINT `apt_bookings_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,6 +62,7 @@ CREATE TABLE `apt_bookings` (
 --
 
 LOCK TABLES `apt_bookings` WRITE;
+INSERT INTO `apt_bookings` VALUES (1,1,1,'2020-11-06','2020-11-08');
 UNLOCK TABLES;
 
 --
@@ -139,6 +141,32 @@ LOCK TABLES `apt_ratings` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `articles`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(40) NOT NULL,
+  `content` text NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `edit_date` date NOT NULL DEFAULT curdate(),
+  PRIMARY KEY (`id`),
+  KEY `articles_users_id_fk` (`author_id`),
+  CONSTRAINT `articles_users_id_fk` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles`
+--
+
+LOCK TABLES `articles` WRITE;
+INSERT INTO `articles` VALUES (1,'homepage','Przykładowy tekst wybierany z bazy danych.',2,'2020-11-09');
+UNLOCK TABLES;
+
+--
 -- Table structure for table `attractions`
 --
 
@@ -196,7 +224,7 @@ CREATE TABLE `users` (
   `role` varchar(1) NOT NULL DEFAULT 'c' COMMENT 'C - client; W - worker; A - administrator',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_login_uindex` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,6 +232,7 @@ CREATE TABLE `users` (
 --
 
 LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES (1,'Kamil','qwerty','c'),(2,'admin','qwerty','a'),(3,'pracownik','qwerty','w');
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -215,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-29  9:20:14
+-- Dump completed on 2020-11-10  8:20:45
