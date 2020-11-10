@@ -74,7 +74,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="row">
         <div class="col">
             <form action="../scripts/update_info.php" method="post">
-                <label for="editor"><h2>Informacje o ośrodku</h2></label>
+                <label class="h2" for="editor">Informacje o ośrodku</label>
                 <?php
                 require '../env/connect.php';
 //                TODO stworzyć edytor
