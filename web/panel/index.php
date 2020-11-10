@@ -77,16 +77,15 @@ if (!isset($_SESSION['user_id'])) {
                 <label class="h2" for="editor">Informacje o ośrodku</label>
                 <?php
                 require '../env/connect.php';
-//                TODO stworzyć edytor
-            $sql = $mysqli->prepare('SELECT content FROM articles WHERE id = 1');
-            $sql->execute();
-            $result = $sql->get_result();
-            $row = $result->fetch_assoc();
-            $result->close();
-            $mysqli->close();
+                $sql = $mysqli->prepare('SELECT content FROM articles WHERE id = 1');
+                $sql->execute();
+                $result = $sql->get_result();
+                $row = $result->fetch_assoc();
+                $result->close();
+                $mysqli->close();
                 ?>
-                <textarea name="text" id="editor" cols="30" rows="10"><?=$row['content']?></textarea>
-                <input type="submit" value="Zapisz">
+                <textarea name="text" id="editor" cols="30" rows="10"><?= $row['content'] ?></textarea>
+                <input type="submit" value="Zapisz"/>
             </form>
         </div>
     </div>
