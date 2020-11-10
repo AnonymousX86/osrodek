@@ -3,5 +3,5 @@
 *.code-workspace/
 .history/
 env/
-ckeditor/ckeditor.js.map
-ckeditor/translations/
+web/src/ckeditor/ckeditor.js.map
+web/src/ckeditor/translations/
