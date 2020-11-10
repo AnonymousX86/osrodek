@@ -42,34 +42,33 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
     <?php if ($_SESSION['user_role'] == 'a') { ?>
-    <div class="row">
-        <div class="col">
-            <p>Zarządzaj innymi użytkownikami</p>
-            <table>
-                <tr>
-                    <th>Użytkownik</th>
-                    <th>Operacje</th>
-                </tr>
-                <?php
-                require '../env/connect.php';
-                $sql = $mysqli->prepare('SELECT login FROM users WHERE `role` NOT LIKE \'a\' ORDER BY `role`');
-                $sql->execute();
-                $result = $sql->get_result();
-                $users = [];
-                while ($row = $result->fetch_assoc())
-                    $users[] = $row['login'];
+        <div class="row">
+            <div class="col">
+                <p>Zarządzaj innymi użytkownikami</p>
+                <table>
+                    <tr>
+                        <th>Użytkownik</th>
+                        <th>Operacje</th>
+                    </tr>
+                    <?php
+                    require '../env/connect.php';
+                    $sql = $mysqli->prepare('SELECT login FROM users WHERE `role` NOT LIKE \'a\' ORDER BY `role`');
+                    $sql->execute();
+                    $result = $sql->get_result();
+                    $users = [];
+                    while ($row = $result->fetch_assoc())
+                        $users[] = $row['login'];
 
-
-                foreach ($users as $u) {
-                    echo '<tr>';
-                    echo '<td>'.$u.'</td>';
-                    echo '<td><a href="#">Zarządzaj</a></td>';
-                    echo '<tr/>';
-                }
-                ?>
-            </table>
+                    foreach ($users as $u) {
+                        echo '<tr>';
+                        echo '<td>' . $u . '</td>';
+                        echo '<td><a href="#">Zarządzaj</a></td>';
+                        echo '<tr/>';
+                    }
+                    ?>
+                </table>
+            </div>
         </div>
-    </div>
     <?php } ?>
     <hr/>
     <div class="row">
