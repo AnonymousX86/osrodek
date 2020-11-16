@@ -10,6 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <?php require "../static/head.html" ?>
     <title>Ośrodek wypoczynkowy</title>
+    <link rel="stylesheet" href="../css/panelModal.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -89,7 +90,85 @@ if (!isset($_SESSION['user_id'])) {
             </form>
         </div>
     </div>
+    <hr/>
+    <div class="row">
+        <div class="col">
+            <h2>Atrakcje</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Opis</th>
+                        <th>Dystans</th>
+                        <th><button class="btn btn-success" onclick="dodaj()">Dodaj</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    require '../env/connect.php';
+                    $dane = $mysqli->query('SELECT * FROM attractions');
+                    $result = $dane->fetch_all();
+                    foreach($result as $atrakcja){
+                        ?>
+                    <tr>
+                        <td id="nazwa<?= $atrakcja[0]  ?>"><?= $atrakcja[1] ?></td>
+                        <td id="opis<?= $atrakcja[0]  ?>" aria-label="<?= htmlentities($atrakcja[2]) ?>"><?= htmlentities(substr($atrakcja[2], 0, 40)) ?>
+                            <?php
+                                if(strlen($atrakcja[2])>40) echo "...";
+                            ?></td>
+                        <td id="dystans<?= $atrakcja[0]  ?>"><?= $atrakcja[3] ?></td>
+                        <td>
+                            <button class="btn btn-danger" onclick="">Usuń</button>
+                            <button class="btn btn-primary" onclick="edycja(<?= $atrakcja[0] ?>)">Edytuj</button>
+                        </td>
+                    </tr>
+                <?php
+                    }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+<div id="formAtr">
+    <div class="modal-content">
+        <span id="formClose">&times;</span>
+        <form action="../scripts/atrAddEdit.php" method="post">
+            <label class="h5">Nazwa atrakcji</label><br>
+            <input type="text" name="edytujNazwa" id="edytujNazwa" value=""><br>
+            <label class="h5">Opis atrakcji</label><br>
+            <textarea type="text" name="edytujOpis" id="edytujOpis" cols="30" rows="10"></textarea><br>
+            <label class="h5">Dystans atrakcji</label><br>
+            <input type="number" name="edytujDystans" id="edytujDystans" value=""><br>
+            <input type="text" name="akcja" id="edytujAkcja" hidden value="">
+            <button type="submit" class="btn btn-success">Dodaj</button>
+        </form>
+    </div>
+</div>
+<script>
+    let formAtr,
+        edytujNazwa = document.getElementById("edytujNazwa"),
+        edytujOpis = document.getElementById("edytujOpis"),
+        edytujDystans = document.getElementById("edytujDystans"),
+    edytujAkcja = document.getElementById("edytujAkcja");
+    function dodaj(){
+        formAtr = document.getElementById("formAtr");
+        formAtr.style.display = "block";
+        edytujAkcja.value = "add";
+    }
+    function edycja(x){
+        formAtr = document.getElementById("formAtr");
+        formAtr.style.display = "block";
+        edytujNazwa.value = document.getElementById("nazwa"+x).innerHTML;
+        edytujOpis.innerHTML = document.getElementById("opis"+x).getAttribute("aria-label");
+        edytujDystans.value = document.getElementById("dystans"+x).innerHTML;
+        edytujAkcja.value = "edit";
+    }
+    let closeButton = document.getElementById("formClose");
+    closeButton.addEventListener("click", function (){
+        formAtr.style.display = "none";
+    });
+</script>
 <?php require "../static/scripts.html" ?>
 <script src="../src/ckeditor/ckeditor.js"></script>
 <script>
