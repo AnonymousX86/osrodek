@@ -1,0 +1,22 @@
+#formAtr {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 70%;
+    box-sizing: border-box;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+#formClose {
+    font-size: 60px;
+    cursor: pointer;
+}
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+}
