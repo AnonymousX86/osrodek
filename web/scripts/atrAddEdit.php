@@ -20,8 +20,8 @@ $dystans = $_POST['edytujDystans'];
 // Dodawanie
 if($_POST['akcja']=='add')
 {
-$sql = $mysqli->prepare('INSERT INTO attractions Values (NULL,?,?,?)');
-$sql->bind_param('ssi', $nazwa,$opis,$dystans);
+$sql = $mysqli->prepare('INSERT INTO attractions VALUES (NULL, ?, ?, ?)');
+$sql->bind_param('ssi', $nazwa, $opis, $dystans);
     $sql->execute();
     $mysqli->close();
     header('Location: ../panel/');
