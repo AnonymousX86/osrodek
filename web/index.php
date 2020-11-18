@@ -44,6 +44,18 @@
     <div class="row">
         <div class="col">
             <h2>Atrakcje turystyczne</h2>
+            <div class="row no-gutters">
+                <div class="col-6">
+                    <label for="maxD">
+                        Maks. dystans
+                        <input class="form-control" type="number" id="maxD"/>
+                    </label>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary" onclick="maxKm()">Pokaż</button>
+                </div>
+                <!-- TODO resetowanie i weryfikacja-->
+            </div>
             <table>
                 <thead>
                 <tr>
@@ -59,7 +71,7 @@
                 $sql->execute();
                 $result = $sql->get_result();
                 while ($row = $result->fetch_assoc()) { ?>
-                    <tr>
+                    <tr class="obiekt" data-distance="<?= $row['distance'] ?>">
                         <td><?= $row['name'] ?></td>
                         <td><?= $row['description'] ?></td>
                         <td><?= $row['distance'] ?></td>
@@ -83,6 +95,7 @@
             </p>
         </div>
     </div>
+    <!-- TODO ukrywanie formularza kiedy użytkownik jest zalogowany-->
     <div class="row">
         <div class="col">
             <form action="scripts/login.php" method="post">
