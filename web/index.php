@@ -55,9 +55,10 @@
                 <tbody>
                 <?php
                 require 'env/connect.php';
-                $dane = $mysqli->query('SELECT * FROM attractions');
-                $result = $dane->fetch_all();
-                foreach ($result as $atrakcja) { ?>
+                $sql = $mysqli->prepare('SELECT * FROM attractions');
+                $sql->execute();
+                $result = $sql->get_result();
+                while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?= $atrakcja[1] ?></td>
                         <td><?= $atrakcja[2] ?></td>
