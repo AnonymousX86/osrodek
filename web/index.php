@@ -44,9 +44,42 @@
     <div class="row">
         <div class="col">
             <h2>Atrakcje turystyczne</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid corporis cupiditate ipsum tempora vel
-                vero! Accusantium atque cumque in ipsam, iste magnam nam, necessitatibus nemo pariatur quaerat saepe,
-                sapiente totam?</p>
+        <table>
+         <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Opis</th>
+                        <th>Dystans</th>
+                       
+                    </tr>
+                </thead>
+                <tbody> 
+                    
+        <?php
+        
+        
+            
+         require 'env/connect.php';
+                    $dane = $mysqli->query('SELECT * FROM attractions');
+                    $result = $dane->fetch_all();
+                    foreach($result as $atrakcja){
+                    ?>    
+          <tr>
+             
+        <td><?= $atrakcja[1] ?></td>
+        <td><?= $atrakcja[2] ?></td>
+        <td><?= $atrakcja[3] ?></td>      
+        </tr>
+            
+            
+        <?php            
+                    }
+            
+                   
+        $mysqli->close();           
+        ?>
+        </tbody>            
+       </table> 
         </div>
     </div>
     <div class="row">

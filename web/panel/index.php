@@ -135,6 +135,7 @@ if (!isset($_SESSION['user_id'])) {
         <span id="formClose">&times;</span>
         <form action="../scripts/atrAddEdit.php" method="post">
             <label class="h5">Nazwa atrakcji</label><br>
+            <input type="hidden" name="id" value="" id="id"> 
             <input type="text" name="edytujNazwa" id="edytujNazwa" value=""><br>
             <label class="h5">Opis atrakcji</label><br>
             <textarea type="text" name="edytujOpis" id="edytujOpis" cols="30" rows="10"></textarea><br>
@@ -147,6 +148,7 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 <script>
     let formAtr,
+        edytujId =document.getElementById("id"),
         edytujNazwa = document.getElementById("edytujNazwa"),
         edytujOpis = document.getElementById("edytujOpis"),
         edytujDystans = document.getElementById("edytujDystans"),
@@ -159,6 +161,7 @@ if (!isset($_SESSION['user_id'])) {
     function edycja(x){
         formAtr = document.getElementById("formAtr");
         formAtr.style.display = "block";
+        edytujId.value = x;
         edytujNazwa.value = document.getElementById("nazwa"+x).innerHTML;
         edytujOpis.innerHTML = document.getElementById("opis"+x).getAttribute("aria-label");
         edytujDystans.value = document.getElementById("dystans"+x).innerHTML;
