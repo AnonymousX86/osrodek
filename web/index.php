@@ -60,9 +60,9 @@
                 $result = $sql->get_result();
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?= $atrakcja[1] ?></td>
-                        <td><?= $atrakcja[2] ?></td>
-                        <td><?= $atrakcja[3] ?></td>
+                        <td><?= $row['name'] ?></td>
+                        <td><?= $row['description'] ?></td>
+                        <td><?= $row['distance'] ?></td>
                     </tr>
                     <?php
                 }
