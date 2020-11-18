@@ -44,8 +44,16 @@
     <div class="row">
         <div class="col">
             <h2>Atrakcje turystyczne</h2>
+        
+        <form>
+            
+        <label>Podaj maksymalny dystans<input type="number" id="maxd" class="form-control"></label>    
+        </form>
+            
+        <button onclick="maxkm();">Pokaż</button>    
         <table>
          <thead>
+             
                     <tr>
                         <th>Nazwa</th>
                         <th>Opis</th>
@@ -64,7 +72,7 @@
                     $result = $dane->fetch_all();
                     foreach($result as $atrakcja){
                     ?>    
-          <tr>
+          <tr class="obiekt" data-distance="<?=$atrakcja[3] ?>">
              
         <td><?= $atrakcja[1] ?></td>
         <td><?= $atrakcja[2] ?></td>
@@ -107,5 +115,6 @@
     </div>
 </div>
 <?php require "static/scripts.html" ?>
+    
 </body>
 </html>
