@@ -65,6 +65,7 @@
                     </tr>
                     <?php
                 }
+                $result->close();
                 $mysqli->close();
                 ?>
                 </tbody>
