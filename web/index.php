@@ -108,5 +108,6 @@
     </div>
 </div>
 <?php require "static/scripts.html" ?>
+    
 </body>
 </html>
