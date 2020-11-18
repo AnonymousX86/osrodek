@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <?php require "../static/head.html" ?>
     <title>Ośrodek wypoczynkowy</title>
-    <link rel="stylesheet" href="../css/panelModal.css">
+    <link rel="stylesheet" href="../css/panelModal.css"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -75,7 +75,6 @@ if (!isset($_SESSION['user_id'])) {
     <div class="row">
         <div class="col">
             <form action="../scripts/update_info.php" method="post">
-                <label class="h2" for="editor">Informacje o ośrodku</label>
                 <?php
                 require '../env/connect.php';
                 $sql = $mysqli->prepare('SELECT content FROM articles WHERE id = 1');
@@ -85,8 +84,17 @@ if (!isset($_SESSION['user_id'])) {
                 $result->close();
                 $mysqli->close();
                 ?>
-                <textarea name="text" id="editor" cols="30" rows="10"><?= $row['content'] ?></textarea>
-                <input type="submit" value="Zapisz"/>
+                <div class="row no-gutters">
+                    <div class="col-12 mb-2">
+                        <label for="editor">Informacje o ośrodku</label>
+                        <textarea name="text" id="editor">
+                        <?= $row['content'] ?>
+                        </textarea>
+                    </div>
+                    <div class="col-12 ">
+                        <input class="btn btn-success px-5" type="submit" value="Zapisz"/>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -96,34 +104,35 @@ if (!isset($_SESSION['user_id'])) {
             <h2>Atrakcje</h2>
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Nazwa</th>
-                        <th>Opis</th>
-                        <th>Dystans</th>
-                        <th><button class="btn btn-success" onclick="dodaj()">Dodaj</button></th>
-                    </tr>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Opis</th>
+                    <th>Dystans</th>
+                    <th>
+                        <button class="btn btn-success w-75" onclick="dodaj()">Dodaj</button>
+                    </th>
+                </tr>
                 </thead>
                 <tbody>
                 <?php
-                    require '../env/connect.php';
-                    $dane = $mysqli->query('SELECT * FROM attractions');
-                    $result = $dane->fetch_all();
-                    foreach($result as $atrakcja){
-                        ?>
+                require '../env/connect.php';
+                $dane = $mysqli->query('SELECT * FROM attractions');
+                $result = $dane->fetch_all();
+                foreach ($result as $atrakcja) {
+                    ?>
                     <tr>
-                        <td id="nazwa<?= $atrakcja[0]  ?>"><?= $atrakcja[1] ?></td>
-                        <td id="opis<?= $atrakcja[0]  ?>" aria-label="<?= htmlentities($atrakcja[2]) ?>"><?= htmlentities(substr($atrakcja[2], 0, 40)) ?>
-                            <?php
-                                if(strlen($atrakcja[2])>40) echo "...";
-                            ?></td>
-                        <td id="dystans<?= $atrakcja[0]  ?>"><?= $atrakcja[3] ?></td>
+                        <td id="nazwa<?= $atrakcja[0] ?>"><?= $atrakcja[1] ?></td>
+                        <td id="opis<?= $atrakcja[0] ?>" aria-label="<?= htmlentities($atrakcja[2]) ?>"
+                        ><?= htmlentities(substr($atrakcja[2], 0, 40)) ?>
+                            <?php if (strlen($atrakcja[2]) > 40) echo "..."; ?></td>
+                        <td id="dystans<?= $atrakcja[0] ?>"><?= $atrakcja[3] ?></td>
                         <td>
                             <button class="btn btn-danger" onclick="">Usuń</button>
                             <button class="btn btn-primary" onclick="edycja(<?= $atrakcja[0] ?>)">Edytuj</button>
                         </td>
                     </tr>
-                <?php
-                    }
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -131,44 +140,70 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 <div id="formAtr">
-    <div class="modal-content">
-        <span id="formClose">&times;</span>
+    <div class="row bg-light rounded border">
+        <div class="col-12"><span id="formClose">&times;</span></div>
         <form action="../scripts/atrAddEdit.php" method="post">
-            <label class="h5">Nazwa atrakcji</label><br>
-            <input type="hidden" name="id" value="" id="id"> 
-            <input type="text" name="edytujNazwa" id="edytujNazwa" value=""><br>
-            <label class="h5">Opis atrakcji</label><br>
-            <textarea type="text" name="edytujOpis" id="edytujOpis" cols="30" rows="10"></textarea><br>
-            <label class="h5">Dystans atrakcji</label><br>
-            <input type="number" name="edytujDystans" id="edytujDystans" value=""><br>
-            <input type="text" name="akcja" id="edytujAkcja" hidden value="">
-            <button type="submit" class="btn btn-success">Dodaj</button>
+            <div class="row no-gutters">
+                <input class="form-control" type="hidden" name="id" value="" id="id"/>
+                <div class="col-8 offset-2">
+                    <label>
+                        Nazwa atrakcji
+                        <input class="form-control" type="text" name="edytujNazwa" id="edytujNazwa" value=""/>
+                    </label>
+                </div>
+                <div class="col-8 offset-2">
+                    <label>
+                        Opis atrakcji
+                        <textarea
+                                class="form-control"
+                                type="text"
+                                name="edytujOpis"
+                                id="edytujOpis"
+                                cols="30"
+                                rows="10"
+                        ></textarea>
+                    </label>
+                </div>
+                <div class="col-8 offset-2">
+                    <label>
+                        Dystans atrakcji
+                        <input class="form-control" type="number" name="edytujDystans" id="edytujDystans" value=""/>
+                    </label>
+                </div>
+                <input type="hidden" name="akcja" id="edytujAkcja" value=""/>
+                <div class="col-8 offset-2">
+                    <button type="submit" class="btn btn-success w-50 mt-3 mb-5">Dodaj</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 <script>
-    let formAtr,
-        edytujId =document.getElementById("id"),
+    let formAtr;
+    const edytujId = document.getElementById("id"),
         edytujNazwa = document.getElementById("edytujNazwa"),
         edytujOpis = document.getElementById("edytujOpis"),
         edytujDystans = document.getElementById("edytujDystans"),
-    edytujAkcja = document.getElementById("edytujAkcja");
-    function dodaj(){
+        edytujAkcja = document.getElementById("edytujAkcja");
+
+    function dodaj() {
         formAtr = document.getElementById("formAtr");
         formAtr.style.display = "block";
         edytujAkcja.value = "add";
     }
-    function edycja(x){
+
+    function edycja(x) {
         formAtr = document.getElementById("formAtr");
         formAtr.style.display = "block";
         edytujId.value = x;
-        edytujNazwa.value = document.getElementById("nazwa"+x).innerHTML;
-        edytujOpis.innerHTML = document.getElementById("opis"+x).getAttribute("aria-label");
-        edytujDystans.value = document.getElementById("dystans"+x).innerHTML;
+        edytujNazwa.value = document.getElementById("nazwa" + x).innerHTML;
+        edytujOpis.innerHTML = document.getElementById("opis" + x).getAttribute("aria-label");
+        edytujDystans.value = document.getElementById("dystans" + x).innerHTML;
         edytujAkcja.value = "edit";
     }
+
     let closeButton = document.getElementById("formClose");
-    closeButton.addEventListener("click", function (){
+    closeButton.addEventListener("click", function () {
         formAtr.style.display = "none";
     });
 </script>

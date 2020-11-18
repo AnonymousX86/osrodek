@@ -7,18 +7,17 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once ("../env/connect.php");
 
-if(!isset($_POST['akcja']))
-{
-header('Location: ../');
-exit();    
+if(!isset($_POST['akcja'])) {
+    header('Location: ../');
+    exit();
 }
 
-$nazwa=$_POST['edytujNazwa'];
-$opis=$_POST['edytujOpis'];
-$dystans=$_POST['edytujDystans']; 
+$nazwa = $_POST['edytujNazwa'];
+$opis = $_POST['edytujOpis'];
+$dystans = $_POST['edytujDystans'];
 
 
-//dodawanie
+// Dodawanie
 if($_POST['akcja']=='add')
 {
 $sql = $mysqli->prepare('INSERT INTO attractions Values (NULL,?,?,?)');
@@ -29,15 +28,13 @@ $sql->bind_param('ssi', $nazwa,$opis,$dystans);
 }
     
 
-//aktualizacja
-if($_POST['akcja']=='edit')
-{
-$id=$_POST['id'];    
-$sql = $mysqli->prepare("UPDATE attractions SET name=?, description=?, distance=? WHERE id=$id ");
-$sql->bind_param('ssi', $nazwa,$opis,$dystans);
+// Aktualizacja
+if($_POST['akcja']=='edit') {
+    $id = $_POST['id'];
+    $sql = $mysqli->prepare("UPDATE attractions SET name = ?, description = ?, distance = ? WHERE id = ?");
+    /** @noinspection SpellCheckingInspection */
+    $sql->bind_param('ssii', $nazwa, $opis, $dystans, $id);
     $sql->execute();
     $mysqli->close();
-header('Location: ../panel/');    
+    header('Location: ../panel/');
 }
-
-?>
