@@ -99,8 +99,10 @@ CREATE TABLE `apt_photos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `apt_id` int(11) NOT NULL,
   `photo_name` varchar(40) NOT NULL,
+  `file_name` varchar(36) NOT NULL,
   `description` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `apt_photos_file_name_uindex` (`file_name`),
   KEY `apt_photos_apartments_id_fk` (`apt_id`),
   CONSTRAINT `apt_photos_apartments_id_fk` FOREIGN KEY (`apt_id`) REFERENCES `apartments` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -244,4 +246,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-10  8:20:45
+-- Dump completed on 2020-11-24  8:50:51
